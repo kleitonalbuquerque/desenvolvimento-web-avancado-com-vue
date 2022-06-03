@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <title>Curso Vue</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <input type="text" :value="paciente" @keyup="setPaciente($event)" /> -->
+      <input type="text" v-model="paciente" />
+      <p>{{ paciente }}</p>
+      <hr />
+      <input type="radio" value="f" v-model="sexo" />Feminino
+      <input type="radio" value="m" v-model="sexo" />Masculino
+      <br />
+      {{ sexo }}
+      <hr />
+      <select v-model="plano">
+        <option value="" disabled>Selecione um plano</option>
+        <option value="1">Bronze</option>
+        <option value="2">Prata</option>
+        <option value="3">Ouro</option>
+        <option value="4">Diamante</option>
+      </select>
+      <br />
+      {{ plano }}
+      <hr />
+      <input type="checkbox" value="100" v-model="doencas" />Asma
+      <input type="checkbox" value="101" v-model="doencas" />Diabetes
+      <input type="checkbox" value="102" v-model="doencas" />Hipertensão
+      <br />
+      {{ doencas }}
+      <hr />
+      <textarea v-model="diagnostico"></textarea>
+      <br />
+      {{ diagnostico }}
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          paciente: "João da Silva",
+          sexo: "",
+          plano: "",
+          doencas: [],
+          diagnostico: "",
+        },
+        methods: {
+          setPaciente(e) {
+            this.paciente = e.target.value;
+          },
+        },
+        computed: {},
+      });
+    </script>
+  </body>
+</html>

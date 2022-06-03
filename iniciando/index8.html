@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <title>Curso Vue</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="c in comentarios" :key="id">
+          {{ c.id }} - {{ c.comentario }}
+        </li>
+        <button @click="adicionarElemento()">Adicionar</button>
+        <button @click="removerElemento()">Remover</button>
+        <button @click="modificarElemento()">Atualizar</button>
+      </ul>
+
+      <hr />
+
+      <ul>
+        <li v-for="n in 10">{{ n }}</li>
+      </ul>
+
+      <hr />
+
+      <ul>
+        <li v-for="n in numero">{{ n }}</li>
+      </ul>
+
+      <hr />
+
+      <ul v-for="(curso, key) in cursos">
+        <li>{{ key }}) {{ curso }}</li>
+      </ul>
+
+      <hr />
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- destructuring assigment -->
+          <tr v-for="({titulo, descricao}, key) in cursos2">
+            <td>{{ key }}</td>
+            <td>{{ titulo }}</td>
+            <td>{{ descricao }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr />
+
+      <div>
+        <ol
+          v-for="p in publicacoes"
+          :key="p.id"
+          style="border: solid 1px; padding: 5px; margin-bottom: 10px"
+        >
+          <div>{{ p.publicacao }}</div>
+          <hr />
+          <input type="text" />
+        </ol>
+      </div>
+      <button @click="misturarArray()">Misturar publicações</button>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          comentarios: [
+            { id: 1, comentario: "Comentário 1" },
+            { id: 2, comentario: "Comentário 2" },
+            { id: 3, comentario: "Comentário 3" },
+          ],
+          numero: 5,
+          cursos: ["Laravel", "Web Completo", "Banco de Dados", "Solid", "Vue"],
+          cursos2: {
+            1000: {
+              titulo: "Laravel",
+              descricao: "Domine o framework PHP mais poderoso do mundo",
+            },
+            1001: {
+              titulo: "Banco de Dados",
+              descricao: "Aprenda os principais BDs relacionais do mercado",
+            },
+          },
+          publicacoes: [
+            { id: 1, publicacao: "Publicação 1" },
+            { id: 2, publicacao: "Publicação 2" },
+            { id: 3, publicacao: "Publicação 3" },
+          ],
+        },
+        methods: {
+          misturarArray() {
+            let misturado = [];
+
+            misturado[0] = this.publicacoes[2];
+            misturado[1] = this.publicacoes[0];
+            misturado[2] = this.publicacoes[1];
+
+            this.publicacoes = misturado;
+          },
+          adicionarElemento() {
+            // this.comentarios[3] = { id: 4, comentario: "Comentário 4" };
+            // console.log(this.comentarios);
+            this.comentarios.push({ id: 4, comentario: "Comentário 4" });
+          },
+          removerElemento() {
+            this.comentarios.pop();
+          },
+          modificarElemento() {
+            this.$set(this.comentarios, 1, {
+              id: 2,
+              comentario: "Comentário 2 atualizado",
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <title>Curso Vue</title>
+    <style>
+      .verde {
+        color: green;
+      }
+      .red {
+        color: #fff;
+        background-color: red;
+      }
+      .azul {
+        color: #fff;
+        background-color: blue;
+      }
+      .negrito {
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Datas</h2>
+      {{ msg }} <br />
+      Valor Total R$ {{ valorTotal.toFixed(2) }} <br />
+      Logado: {{ logado }} <br />
+      Hobbie(s): {{ hobbies[0] }} <br />
+      Perfil: {{ perfil.nome }}, {{ perfil.cursos[0].nome }}, Mínimo: {{ min }},
+      Máximo: {{ max }}
+      <hr />
+      <h2>Methods</h2>
+      {{ somar() }} <br />
+      {{ subtrair() }} <br />
+      {{ multiplicar() }} <br />
+      {{ dividir() }} <br />
+      Aleatório entre 0 e 100: <strong>{{ numeroAleatorio(0, 100) }}</strong>
+      <br />
+      <!-- {{ aleatorio(2, 10) }} -->
+      <hr />
+      <h2>Diretiva V-Bind</h2>
+      <a :href="site" target="_blank">Site</a>
+      <p :class="cor" class="negrito">Entendo a diretiva v-bind</p>
+      <input
+        type="text"
+        name=""
+        id=""
+        :placeholder="instrucaoDePreenchimento"
+        :value="valor"
+      />
+      <input type="checkbox" name="" id="" :checked="check" />
+      <hr />
+      <h2>Utilizando expressões no data binding</h2>
+      <p>{{ mensagem }}</p>
+      <p>{{ mensagem.substr(0,3) }}</p>
+      <p>{{ mensagem.length }}</p>
+      <input type="text" :value="mensagem" :class="!teste ? 'red' : estilo" />
+      <p>{{ 2 + 2 }}</p>
+      <input type="text" :value="2 + 2" />
+      <hr />
+      <h2>Diretiva V-On - Manipulando eventos</h2>
+      <!-- v-on => @ -->
+      <input
+        type="text"
+        v-on:keyup="imprimirTexto('Enviando parâmetro', 5, xyz)"
+      />
+      <button @click="mensagemAlerta()">Botão</button>
+      <hr />
+      <h2>Diretiva V-On - Capturando os dados do evento ($event)</h2>
+      <input
+        type="text"
+        v-on:keyup="imprimirTexto('Enviando parâmetro', 5, xyz)"
+      />
+      <button @click="mensagemAlerta($event, 'texto', 100)">Botão</button>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          // variáveis/atributos reativos
+          msg: "Primeiro template controlado pelo Vue!",
+          valorTotal: 149.9,
+          logado: false,
+          hobbies: ["Futebol", "Séries", "Estudar Desenvolvimento de Software"],
+          perfil: {
+            tipo: "admin",
+            nome: "Kleiton",
+            email: "kleiton@mail.com",
+            idade: 38,
+            cursos: [
+              {
+                nome: "Curso JavaScript",
+                cargaHoraria: "300 horas",
+              },
+              {
+                nome: "Desenvolvimento Front-End com Vue",
+                cargaHoraria: "150 horas",
+              },
+              {
+                nome: "Desenvolvimento Back-End com Node",
+                cargaHoraria: "180 horas",
+              },
+              {
+                nome: "Neo4j - GraphAcademy",
+                cargaHoraria: "120 horas",
+              },
+            ],
+          },
+          n1: 10,
+          n2: 5,
+          site: "https://google.com",
+          cor: "verde",
+          instrucaoDePreenchimento: "Placeholder - Diretiva v-bind",
+          valor: "Entendendo a diretiva v-bind",
+          check: true,
+          mensagem: "Expressão",
+          estilo: "azul",
+          teste: false,
+          xyz: true,
+        },
+        methods: {
+          // convencional
+          somar: function somar() {
+            return this.n1 + this.n2;
+          },
+          // anônima
+          subtrair: function () {
+            return this.n1 - this.n2;
+          },
+          // arrow function
+          multiplicar: () => this.n1 * this.n2, // contexto léxico
+          // forma enxuta
+          dividir() {
+            return this.n1 / this.n2;
+          },
+          numeroAleatorio(min, max) {
+            const valor = Math.random() * (max - min) + min;
+            return Math.floor(valor);
+          },
+          imprimirTexto(t, n, x) {
+            console.log(t);
+            console.log(n);
+            console.log(x);
+          },
+          mensagemAlerta(event, p1, p2) {
+            // alert("Mensagem de alerta");
+            alert(event, p1, p2);
+            console.log(event, p1, p2);
+          },
+        },
+      }); // vm = ViewModel
+
+      console.log(vm);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <title>Curso Vue</title>
+    <style>
+      .branco {
+        background-color: white;
+      }
+      .verde {
+        background-color: green;
+      }
+      .azul {
+        background-color: blue;
+      }
+      .vermelho {
+        background-color: red;
+      }
+      .borda {
+        border: 1px solid;
+      }
+      .div-principal {
+        width: 200px;
+        height: 200px;
+      }
+      .div-comum {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="borda div-principal" :class="cor">
+        Cor: {{ cor }} <br />
+        Posição X do mouse: {{ posicaoX }} <br />
+        Posição Y do mouse: {{ posicaoY }}
+      </div>
+      <hr />
+      <div @click='mudarCor("verde")' class="borda div-comum verde"></div>
+      <div
+        @mouseover="mudarCor('azul')"
+        @mouseout="mudarCor('branco')"
+        class="borda div-comum azul"
+      ></div>
+      <div
+        @mousemove="coordenadas($event)"
+        @mouseover="mudarCor('vermelho')"
+        class="borda div-comum vermelho"
+      ></div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          cor: "branco",
+          posicaoX: 0,
+          posicaoY: 0,
+        },
+        methods: {
+          mudarCor(c) {
+            // console.log(c);
+            this.cor = c;
+          },
+          coordenadas(e) {
+            // console.log(e);
+            this.posicaoX = e.clientX;
+            this.posicaoY = e.clientY;
+            console.log("X: ", this.posicaoX, "Y: ", this.posicaoY);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
